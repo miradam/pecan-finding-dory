@@ -1,6 +1,7 @@
 Finding Dory
 ============
 A reference project for Python APIs based on OpenStack. In particular, this project uses:
+
 * oslo.config
 * pecan
 * stevedore
@@ -9,14 +10,14 @@ Getting Started
 ---------------
 #. From your home folder, create the ``~/.dory`` folder and clone this repository::
 
-    $ cd
+    $ cd ~
     $ mkdir .dory
     $ git clone https://github.com/rackerlabs/finding_dory.git
 
 #. Copy the configuration files to the directory ``~/.dory``::
 
-    $ cp dory/etc/dory.conf ~/.dory/dory.conf
-    $ cp dory/etc/logging.conf ~/.dory/logging.conf
+    $ cp finding_dory/etc/dory.conf ~/.dory/dory.conf
+    $ cp finding_dory/etc/logging.conf ~/.dory/logging.conf
 
 #. For logging, find the ``[DEFAULT]`` section in ``~/.dory/dory.conf`` and modify as desired::
 
