@@ -25,9 +25,9 @@ class TransportDriverBase(object):
     :type conf: oslo.config.cfg.CONF
     """
 
-    def __init__(self, conf, manager_driver):
+    def __init__(self, conf, manager):
         self._conf = conf
-        self._manager_driver = manager_driver
+        self._manager = manager
 
         self.app = None
 

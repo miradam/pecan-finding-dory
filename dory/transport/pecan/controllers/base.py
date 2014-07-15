@@ -19,13 +19,13 @@ from pecan import rest
 class Controller(rest.RestController):
 
     @property
-    def manager_driver(self):
-        return self._manager_driver
+    def manager(self):
+        return self._manager
 
-    @manager_driver.setter
-    def manager_driver(self, value):
-        self._manager_driver = value
+    @manager.setter
+    def manager(self, value):
+        self._manager = value
 
     def add_controller(self, path, controller):
         setattr(self, path, controller)
-        getattr(self, path).manager_driver = self.manager_driver
+        getattr(self, path).manager = self.manager
