@@ -33,13 +33,19 @@ class TodosController(base.Controller):
         return todos_controller.get(todo_id)
 
     @pecan.expose('json')
-    def put(self, todo_id):
-        return 'put ' + str(todo_id)
+    def post(self):
+        todos_controller = self.manager_driver.todos_controller
+
+        return str(todos_controller.create('Title', 'Text'))
 
     @pecan.expose('json')
-    def post(self):
-        return 'post'
+    def put(self, todo_id):
+        todos_controller = self.manager_driver.todos_controller
+
+        return todos_controller.update(todo_id, 'Title', 'Text')
 
     @pecan.expose('json')
     def delete(self, todo_id):
-        return 'delete ' + str(todo_id)
+        todos_controller = self.manager_driver.todos_controller
+
+        return todos_controller.delete(todo_id)

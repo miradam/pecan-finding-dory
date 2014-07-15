@@ -14,24 +14,34 @@
 # limitations under the License.
 
 import abc
+
 import six
+
+from dory.manager.base import controller
 
 
 @six.add_metaclass(abc.ABCMeta)
-class TransportDriverBase(object):
-    """Base class for Transport Drivers to document the expected interface.
+class TodosControllerBase(controller.ManagerControllerBase):
 
-    :param conf: configuration instance
-    :type conf: oslo.config.cfg.CONF
-    """
-
-    def __init__(self, conf, manager_driver):
-        self._conf = conf
-        self._manager_driver = manager_driver
-
-        self.app = None
+    def __init__(self, driver):
+        super(TodosControllerBase, self).__init__(driver)
 
     @abc.abstractmethod
-    def listen():
-        """Start listening for client requests (self-hosting mode)."""
+    def list(self, project_id):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get(self, todo_id):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def create(self, project_id, service_name, service_json):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def update(self, project_id, service_name):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def delete(self, project_id, service_name):
         raise NotImplementedError

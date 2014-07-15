@@ -14,24 +14,18 @@
 # limitations under the License.
 
 import abc
+
 import six
 
 
 @six.add_metaclass(abc.ABCMeta)
-class TransportDriverBase(object):
-    """Base class for Transport Drivers to document the expected interface.
+class ManagerControllerBase(object):
 
-    :param conf: configuration instance
-    :type conf: oslo.config.cfg.CONF
+    """Top-level class for controllers.
+
+    :param driver: Instance of the driver
+        instantiating this controller.
     """
 
-    def __init__(self, conf, manager_driver):
-        self._conf = conf
-        self._manager_driver = manager_driver
-
-        self.app = None
-
-    @abc.abstractmethod
-    def listen():
-        """Start listening for client requests (self-hosting mode)."""
-        raise NotImplementedError
+    def __init__(self, driver):
+        self.driver = driver

@@ -13,25 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import abc
-import six
+from dory.manager.base import driver
+from dory.manager.base import todos
 
 
-@six.add_metaclass(abc.ABCMeta)
-class TransportDriverBase(object):
-    """Base class for Transport Drivers to document the expected interface.
+Driver = driver.ManagerDriverBase
 
-    :param conf: configuration instance
-    :type conf: oslo.config.cfg.CONF
-    """
-
-    def __init__(self, conf, manager_driver):
-        self._conf = conf
-        self._manager_driver = manager_driver
-
-        self.app = None
-
-    @abc.abstractmethod
-    def listen():
-        """Start listening for client requests (self-hosting mode)."""
-        raise NotImplementedError
+TodosController = todos.TodosControllerBase

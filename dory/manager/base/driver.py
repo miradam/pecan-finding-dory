@@ -14,24 +14,19 @@
 # limitations under the License.
 
 import abc
+
 import six
 
 
 @six.add_metaclass(abc.ABCMeta)
-class TransportDriverBase(object):
-    """Base class for Transport Drivers to document the expected interface.
+class ManagerDriverBase(object):
+    """Add some docstrings"""
 
-    :param conf: configuration instance
-    :type conf: oslo.config.cfg.CONF
-    """
-
-    def __init__(self, conf, manager_driver):
+    def __init__(self, conf, storage):
         self._conf = conf
-        self._manager_driver = manager_driver
+        self._storage = storage
 
-        self.app = None
-
-    @abc.abstractmethod
-    def listen():
-        """Start listening for client requests (self-hosting mode)."""
+    @abc.abstractproperty
+    def todos_controller(self):
+        """Returns the driver's Todos controller."""
         raise NotImplementedError
