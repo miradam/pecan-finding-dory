@@ -13,20 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import abc
-
-import six
+from dory.storage.memory import todos
 
 
-@six.add_metaclass(abc.ABCMeta)
-class ManagerDriverBase(object):
-    """Add some docstrings"""
-
-    def __init__(self, conf, storage):
-        self._conf = conf
-        self.storage = storage
-
-    @abc.abstractproperty
-    def todos_controller(self):
-        """Returns the driver's Todos controller."""
-        raise NotImplementedError
+Todos = todos.MemoryTodosController

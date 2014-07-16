@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import uuid
-
 from dory.manager import base
 from dory.openstack.common import local
 
@@ -22,16 +20,31 @@ from dory.openstack.common import local
 class DefaultTodosController(base.TodosController):
 
     def list(self):
-        return [local.store.context.tenant, 1, 2, 3]
+        todos_controller = self.driver.storage.todos_controller
+
+        return todos_controller.list(local.store.context.tenant)
 
     def get(self, todo_id):
-        return todo_id
+        todos_controller = self.driver.storage.todos_controller
+
+        return todos_controller.get(local.store.context.tenant, todo_id)
 
     def create(self, title, text):
-        return uuid.uuid4()
+        todos_controller = self.driver.storage.todos_controller
+
+        return todos_controller.create(local.store.context.tenant, title, text)
 
     def update(self, todo_id, title, text):
-        return todo_id
+        todos_controller = self.driver.storage.todos_controller
+
+        return todos_controller.update(
+            local.store.context.tenant,
+            todo_id,
+            title,
+            text
+        )
 
     def delete(self, todo_id):
-        return todo_id
+        todos_controller = self.driver.storage.todos_controller
+
+        return todos_controller.delete(local.store.context.tenant, todo_id)

@@ -13,20 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import abc
+"""Memory storage driver implementation."""
 
-import six
+from dory.common import decorators
+from dory.storage import base
+from dory.storage.memory import controllers
 
 
-@six.add_metaclass(abc.ABCMeta)
-class ManagerDriverBase(object):
-    """Add some docstrings"""
+class MemoryStorageDriver(base.Driver):
 
-    def __init__(self, conf, storage):
-        self._conf = conf
-        self.storage = storage
+    def __init__(self, conf):
+        super(MemoryStorageDriver, self).__init__(conf)
 
-    @abc.abstractproperty
+    @decorators.lazy_property(write=False)
     def todos_controller(self):
-        """Returns the driver's Todos controller."""
-        raise NotImplementedError
+        return controllers.Todos(self)

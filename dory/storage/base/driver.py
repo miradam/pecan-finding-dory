@@ -19,12 +19,11 @@ import six
 
 
 @six.add_metaclass(abc.ABCMeta)
-class ManagerDriverBase(object):
+class StorageDriverBase(object):
     """Add some docstrings"""
 
-    def __init__(self, conf, storage):
+    def __init__(self, conf):
         self._conf = conf
-        self.storage = storage
 
     @abc.abstractproperty
     def todos_controller(self):

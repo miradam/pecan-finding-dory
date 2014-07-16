@@ -16,7 +16,7 @@
 from dory.common import decorators
 from dory.openstack.common import log
 from oslo.config import cfg
-from stevedore import driver, extension
+from stevedore import driver
 
 
 LOG = log.getLogger(__name__)
@@ -27,7 +27,7 @@ _DRIVER_OPTIONS = [
                help='Transport driver to use'),
     cfg.StrOpt('manager', default='default',
                help='Manager driver to use'),
-    cfg.StrOpt('storage', default='mockdb',
+    cfg.StrOpt('storage', default='memory',
                help='Storage driver to use'),
 ]
 
@@ -51,30 +51,14 @@ class Bootstrap(object):
         LOG.debug("init bootstrap")
 
     @decorators.lazy_property(write=False)
-    def provider(self):
-        LOG.debug((u'Loading provider extension(s)'))
-
-        # create the driver manager to load the appropriate drivers
-        provider_type = 'dory.provider'
-        args = [self.conf]
-
-        try:
-            mgr = extension.ExtensionManager(namespace=provider_type,
-                                             invoke_on_load=True,
-                                             invoke_args=args)
-            return mgr
-        except RuntimeError as exc:
-            LOG.exception(exc)
-
-    @decorators.lazy_property(write=False)
     def storage(self):
-        LOG.debug((u'Loading storage driver'))
+        LOG.debug('Loading storage driver')
 
-        # create the driver manager to load the appropriate drivers
+        # Create the driver manager to load the appropriate drivers
         storage_type = 'dory.storage'
         storage_name = self.driver_conf.storage
 
-        args = [self.conf, self.provider]
+        args = [self.conf]
 
         try:
             mgr = driver.DriverManager(namespace=storage_type,
@@ -93,8 +77,7 @@ class Bootstrap(object):
         manager_type = 'dory.manager'
         manager_name = self.driver_conf.manager
 
-        # args = [self.conf, self.storage]
-        args = [self.conf, None]
+        args = [self.conf, self.storage]
 
         try:
             manager = driver.DriverManager(namespace=manager_type,
@@ -109,7 +92,7 @@ class Bootstrap(object):
     def transport(self):
         LOG.debug("loading transport")
 
-        # create the driver manager to load the appropriate drivers
+        # Create the driver manager to load the appropriate drivers
         transport_type = 'dory.transport'
         transport_name = self.driver_conf.transport
 

@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import uuid
+
 import pecan
 
 from dory.transport.pecan.controllers import base
@@ -24,13 +26,14 @@ class TodosController(base.Controller):
     def get_all(self):
         todos_controller = self.manager.todos_controller
 
-        return todos_controller.list()
+        return str(todos_controller.list())
 
     @pecan.expose('json')
     def get_one(self, todo_id):
         todos_controller = self.manager.todos_controller
 
-        return todos_controller.get(todo_id)
+        todo_uuid = uuid.UUID(todo_id)
+        return str(todos_controller.get(todo_uuid))
 
     @pecan.expose('json')
     def post(self):
@@ -42,10 +45,12 @@ class TodosController(base.Controller):
     def put(self, todo_id):
         todos_controller = self.manager.todos_controller
 
-        return todos_controller.update(todo_id, 'Title', 'Text')
+        todo_uuid = uuid.UUID(todo_id)
+        return str(todos_controller.update(todo_uuid, 'Title2', 'Text2'))
 
     @pecan.expose('json')
     def delete(self, todo_id):
         todos_controller = self.manager.todos_controller
 
-        return todos_controller.delete(todo_id)
+        todo_uuid = uuid.UUID(todo_id)
+        return str(todos_controller.delete(todo_uuid))

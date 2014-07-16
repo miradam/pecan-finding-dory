@@ -17,16 +17,31 @@ import abc
 
 import six
 
+from dory.storage.base import controller
+
 
 @six.add_metaclass(abc.ABCMeta)
-class ManagerDriverBase(object):
-    """Add some docstrings"""
+class TodosControllerBase(controller.StorageControllerBase):
 
-    def __init__(self, conf, storage):
-        self._conf = conf
-        self.storage = storage
+    def __init__(self, driver):
+        super(TodosControllerBase, self).__init__(driver)
 
-    @abc.abstractproperty
-    def todos_controller(self):
-        """Returns the driver's Todos controller."""
+    @abc.abstractmethod
+    def list(self, project_id):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get(self, project_id, todo_id):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def create(self, project_id, title, text):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def update(self, project_id, todo_id, title, text):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def delete(self, project_id, todo_id):
         raise NotImplementedError

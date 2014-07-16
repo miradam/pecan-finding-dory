@@ -19,14 +19,13 @@ import six
 
 
 @six.add_metaclass(abc.ABCMeta)
-class ManagerDriverBase(object):
-    """Add some docstrings"""
+class StorageControllerBase(object):
 
-    def __init__(self, conf, storage):
-        self._conf = conf
-        self.storage = storage
+    """Top-level class for controllers.
 
-    @abc.abstractproperty
-    def todos_controller(self):
-        """Returns the driver's Todos controller."""
-        raise NotImplementedError
+    :param driver: Instance of the driver
+        instantiating this controller.
+    """
+
+    def __init__(self, driver):
+        self.driver = driver
