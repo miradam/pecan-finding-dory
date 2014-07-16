@@ -28,9 +28,17 @@ class TransportDriverBase(object):
 
     def __init__(self, conf, manager):
         self._conf = conf
-        self.manager = manager
+        self._manager = manager
 
-        self.app = None
+        self._app = None
+
+    @property
+    def app(self):
+        return self._app
+
+    @property
+    def manager(self):
+        return self._manager
 
     @abc.abstractmethod
     def listen():

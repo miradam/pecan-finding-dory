@@ -24,7 +24,11 @@ class ManagerDriverBase(object):
 
     def __init__(self, conf, storage):
         self._conf = conf
-        self.storage = storage
+        self._storage = storage
+
+    @property
+    def storage(self):
+        return self._storage
 
     @abc.abstractproperty
     def todos_controller(self):

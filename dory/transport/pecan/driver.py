@@ -51,7 +51,7 @@ class PecanTransportDriver(transport.Driver):
 
         pecan_hooks = [hooks.Context()]
 
-        self.app = pecan.make_app(root_controller, hooks=pecan_hooks)
+        self._app = pecan.make_app(root_controller, hooks=pecan_hooks)
 
         v1_controller = controllers.V1(self)
         root_controller.add_controller('v1', v1_controller)
