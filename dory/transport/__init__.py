@@ -19,4 +19,4 @@ from dory.transport import base
 
 
 # Hoist into package namespace
-DriverBase = base.TransportDriverBase
+Driver = base.TransportDriverBase

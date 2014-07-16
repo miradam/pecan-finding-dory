@@ -18,14 +18,8 @@ from pecan import rest
 
 class Controller(rest.RestController):
 
-    @property
-    def manager(self):
-        return self._manager
-
-    @manager.setter
-    def manager(self, value):
-        self._manager = value
+    def __init__(self, driver):
+        self._driver = driver
 
     def add_controller(self, path, controller):
         setattr(self, path, controller)
-        getattr(self, path).manager = self.manager

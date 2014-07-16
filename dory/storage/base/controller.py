@@ -28,4 +28,4 @@ class StorageControllerBase(object):
     """
 
     def __init__(self, driver):
-        self.driver = driver
+        self._driver = driver

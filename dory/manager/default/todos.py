@@ -20,22 +20,22 @@ from dory.openstack.common import local
 class DefaultTodosController(base.TodosController):
 
     def list(self):
-        todos_controller = self.driver.storage.todos_controller
+        todos_controller = self._driver.storage.todos_controller
 
         return todos_controller.list(local.store.context.tenant)
 
     def get(self, todo_id):
-        todos_controller = self.driver.storage.todos_controller
+        todos_controller = self._driver.storage.todos_controller
 
         return todos_controller.get(local.store.context.tenant, todo_id)
 
     def create(self, title, text):
-        todos_controller = self.driver.storage.todos_controller
+        todos_controller = self._driver.storage.todos_controller
 
         return todos_controller.create(local.store.context.tenant, title, text)
 
     def update(self, todo_id, title, text):
-        todos_controller = self.driver.storage.todos_controller
+        todos_controller = self._driver.storage.todos_controller
 
         return todos_controller.update(
             local.store.context.tenant,
@@ -45,6 +45,6 @@ class DefaultTodosController(base.TodosController):
         )
 
     def delete(self, todo_id):
-        todos_controller = self.driver.storage.todos_controller
+        todos_controller = self._driver.storage.todos_controller
 
         return todos_controller.delete(local.store.context.tenant, todo_id)

@@ -14,6 +14,7 @@
 # limitations under the License.
 
 import abc
+
 import six
 
 
@@ -27,7 +28,7 @@ class TransportDriverBase(object):
 
     def __init__(self, conf, manager):
         self._conf = conf
-        self._manager = manager
+        self.manager = manager
 
         self.app = None
 

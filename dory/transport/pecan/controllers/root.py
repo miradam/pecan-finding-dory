@@ -22,7 +22,8 @@ from dory.transport.pecan.controllers import base
 
 class RootController(base.Controller):
 
-    def __init__(self):
+    def __init__(self, driver):
+        super(RootController, self).__init__(driver)
         self.paths = []
 
     def add_controller(self, path, controller):

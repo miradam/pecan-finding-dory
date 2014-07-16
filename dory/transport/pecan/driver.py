@@ -36,7 +36,7 @@ _PECAN_GROUP = 'drivers:transport:pecan'
 LOG = log.getLogger(__name__)
 
 
-class PecanTransportDriver(transport.DriverBase):
+class PecanTransportDriver(transport.Driver):
 
     def __init__(self, conf, manager):
         super(PecanTransportDriver, self).__init__(conf, manager)
@@ -47,19 +47,16 @@ class PecanTransportDriver(transport.DriverBase):
         self._setup_app()
 
     def _setup_app(self):
-        root_controller_path = 'dory.transport.pecan.controllers.Root'
+        root_controller = controllers.Root(self)
 
         pecan_hooks = [hooks.Context()]
 
-        self.app = pecan.make_app(root_controller_path, hooks=pecan_hooks)
+        self.app = pecan.make_app(root_controller, hooks=pecan_hooks)
 
-        root_controller = self.app.application.root
-        root_controller.manager = self._manager
-
-        v1_controller = controllers.V1()
+        v1_controller = controllers.V1(self)
         root_controller.add_controller('v1', v1_controller)
 
-        todos_controller = controllers.Todos()
+        todos_controller = controllers.Todos(self)
         v1_controller.add_controller('todos', todos_controller)
 
     def listen(self):
