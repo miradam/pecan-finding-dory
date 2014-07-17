@@ -1,0 +1,6 @@
+.DS_Store
+.venv/*
+dory.log
+
+*.egg-info/*
+*.pyc
