@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Hewlett-Packard Development Company, L.P.
+# Copyright (c) 2014 Rackspace, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +13,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+
+import pip
 import setuptools
 
+
+requirement_files = []
+# walk the requirements directory and gather requirement files
+for root, dirs, files in os.walk('requirements'):
+    for requirements_file in files:
+        requirements_file_path = os.path.join(root, requirements_file)
+        # parse_requirements() returns generator of requirement objects
+        requirement_files.append(
+            pip.req.parse_requirements(requirements_file_path))
+
+# parse all requirement files and generate requirements
+requirements = set()
+for requirement_file in requirement_files:
+    requirements.update([str(req.req) for req in requirement_file])
+# convert requirements in to list
+requirements = list(requirements)
+
 setuptools.setup(
+    install_requires=requirements,
     setup_requires=['pbr'],
     pbr=True)
